@@ -1,0 +1,23 @@
+version: "2.0"
+services:
+  web:
+    container_name: php7.4
+    image: cmattos58/fedora36-php_apache:v3
+    ports:
+       - "80:80"
+       - "443:443"
+    links:
+       - db
+    volumes:
+      - ./html:/var/www/html
+    restart: always
+  db:
+    image: cmattos58/postgres:13
+    container_name: database
+    ports:
+      - 5432:5432
+    volumes:
+      - ./pgsql_data:/var/lib/postgresql/data
+    environment:
+      POSTGRES_PASSWORD=123
+      restart: always
